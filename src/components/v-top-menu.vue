@@ -1,16 +1,22 @@
 <script>
+
+
 export default {
   data() {
     return {
       currentDate: '',
-      currentDay: ''
+      currentDay: '',
     }
   },
+
+
   mounted() {
     setInterval(() => {
       this.currentDate = new Date().toLocaleString()
     }, 1000)
-    this.currentDay = new Date().toLocaleString('ru-RU', { weekday: 'long' })
+    this.currentDay = new Date().toLocaleString('ru-RU', { weekday: 'long' });
+
+
   }
 }
 </script>
@@ -53,7 +59,7 @@ export default {
   height: 100%;
 }
 
-.top-menu li {
+.top-menu li, p {
   margin: 0 10px;
 }
 
