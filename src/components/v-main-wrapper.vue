@@ -1,29 +1,23 @@
 <script>
-import vNavigationMenu from './v-navigation-menu.vue';
-import vTopMenu from './v-top-menu.vue';
-import vProductsVue from './products/v-products.vue';
+import vNavigationMenu from "./v-navigation-menu.vue";
+import vTopMenu from "./v-top-menu.vue";
 
 export default {
-    components: {
-        vNavigationMenu,
-        vTopMenu,
-        vProductsVue
-    }
-}
+  components: {
+    vNavigationMenu,
+    vTopMenu,
+  },
+};
 </script>
 
 <template>
-    <div class="v-main-wrapper">
-        <vTopMenu/>
-         <router-view/>
-         <div class="container-v-main-wrapper">
-            <vProductsVue/>
-            <vProductsVue/>
-            <vProductsVue/>
-            <vProductsVue/>
-         </div>
-        <vNavigationMenu/>
+  <div class="v-main-wrapper">
+    <vTopMenu />
+    <div class="container-v-main-wrapper">
+      <router-view />
     </div>
+    <vNavigationMenu />
+  </div>
 </template>
 
 <style>
