@@ -23,10 +23,11 @@ export default {};
   height: 100%;
   position: fixed;
   left: 0;
+  top: 0;
   background-color: #fff;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   padding: 20px;
-  z-index: -1;
+  z-index: 1;
 }
 
 .sidebar ul {
@@ -53,7 +54,7 @@ export default {};
   overflow: hidden;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  margin: 30px 0;
+  margin: 130px 0 20px;
 }
 
 .avatar img {

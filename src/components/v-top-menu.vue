@@ -47,6 +47,11 @@ export default {
   color: #000;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   height: 100px;
+  position: fixed;
+  left: 0;
+  right: 20%;
+  top: 0;
+  z-index: 2;
 }
 
 .top-menu ul {
