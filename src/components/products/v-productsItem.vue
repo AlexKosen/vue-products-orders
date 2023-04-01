@@ -1,40 +1,65 @@
 <script>
-
 export default {
-    props: {
-        product_info: {
-            type: Object,
-            default() {
-                return {}
-            }
-        }
-
+  props: {
+    product_info: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
+  data() {
+    return {
+      
     }
-}
+  },
+  methods: {
+
+  },
+
+  computed: {
+    formattedDateOrder() {
+      const dateParts = this.product_info.date.split(' ')[0].split('-');
+      return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+    },
+    formDateGuaranteStart() {
+      const dateParts = this.product_info.guarantee.start.split(' ')[0].split('-');
+      return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+    },
+    formDateGuaranteEnd() {
+      const dateParts = this.product_info.guarantee.end.split(' ')[0].split('-');
+      return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+    }
+  }
+};
 </script>
 <template>
-      <div class="product-item">
-    <div class="status-icon">
+  <div class="product-item">
+    <div class="status-icon" style="flex-basis:1%">
       <div class="circle"></div>
     </div>
-    <div class="product-image">
+    <div class="product-image" style="flex-basis: 5%">
       <span class="material-icons"> desktop_windows </span>
     </div>
-    <div class="product-name">
+    <div class="product-name" style="flex-basis: 15%">
       <p>{{ product_info.title }}</p>
     </div>
-    <div class="serviceability">Исправен</div>
-    <div class="guarantee">
-        с {{ product_info.guarantee.start }} 
-        по {{ product_info.guarantee.end }}
+    <div class="serviceability" style="flex-basis:6%">Исправен</div>
+    <div class="guarantee" style="flex-basis:6%">
+      с {{ formDateGuaranteStart }} 
+      по {{ formDateGuaranteEnd }}
     </div>
-    <div class="condition">Новый</div>
-    <div class="price">1000$</div>
-    <div class="name-group-prodact">Название группы товаров</div>
-    <div class="autor-order">Автор прихода</div>
-    <div class="name-order">Название прихода</div>
-    <div class="order-date">Дата прихода</div>
-    <div class="delete-icon">
+    <div class="condition" style="flex-basis: 6%">{{ product_info.isNew ? 'Новий' : 'Б/У' }}</div>
+    <div class="price" style="flex-basis: 7%"
+    v-for="(priceItem) in product_info.price" 
+    :key="priceItem"
+    >{{priceItem.value}} {{ priceItem.symbol }}
+    </div>
+    <div class="name-group-prodact" style="flex-basis: 15%">{{ product_info.type }}</div>
+    <div class="autor-order" style="flex-basis: 12%">Автор прихода</div>
+    <div class="name-order" style="flex-basis: 15%">Название прихода</div>
+    <div class="order-date" style="flex-basis: 8%">{{ formattedDateOrder }}</div>
+    <div class="delete-icon" style="flex-basis: 3%">
       <span class="material-icons"> delete </span>
     </div>
   </div>
@@ -52,7 +77,7 @@ export default {
 }
 .product-item div {
   display: flex;
-  padding: 0 5px;
+  margin: 0 15px;
   align-items: center;
   box-sizing: border-box;
 }
@@ -67,15 +92,7 @@ export default {
 }
 
 .product-name {
-  width: 15%;
   box-sizing: border-box;
-
-}
-.name-group-prodact {
-  width: 15%;
-}
-.name-order {
-  width: 15%;
 }
 .circle {
   width: 10px;
@@ -87,5 +104,8 @@ export default {
 }
 .serviceability {
   padding: 0 5px;
+}
+.material-icons:hover {
+  cursor: pointer;
 }
 </style>

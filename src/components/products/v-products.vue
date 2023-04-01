@@ -6,10 +6,24 @@ export default {
   components: {
     vProductsItemVue
   },
+  data() {
+    return {
+      selectedType: '',
+    }
+  },
   computed: {
     ...mapGetters([
       "PRODUCTS"
-    ])
+    ]),
+    types() {
+      return [...new Set(this.PRODUCTS.map((product) => product.type))];
+    },
+    filteredProducts() {
+      if (this.selectedType) {
+        return this.PRODUCTS.filter((product) => product.type === this.selectedType);
+      }
+      return this.PRODUCTS;
+    },
   },
   methods: {
     ...mapActions([
@@ -24,18 +38,16 @@ export default {
 
 <template>
     <div class="product-select">
-      <div class="product-select-name">Продукты / 20</div>
+      <div class="product-select-name">Продукты / {{ PRODUCTS.length }}</div>
       <div class="product-select-type">Тип</div>
-      <!-- <select v-model="selectedType"></select>
-      <option value="">Всі типи</option> -->
-      <!-- <option v-for="type in productTypes" :value="type">{{ type }}</option>
+      <select v-model="selectedType">
+        <option value="">All</option>
+        <option v-for="type in types" :key="type" :value="type">{{ type }}</option>
       </select>
-      <ul>
-      <li v-for="product in filteredProducts">{{ product.name }}</li>
-      </ul> -->
+      
   </div>
   <vProductsItemVue
-  v-for="product in PRODUCTS"
+  v-for="product in filteredProducts"
   :key="product.id"
   :product_info="product"
   />
