@@ -1,6 +1,5 @@
 <script>
-import  'bootstrap/dist/css/bootstrap.css' 
-import  'bootstrap-vue/dist/bootstrap-vue.css'
+
 export default {};
 </script>
 
@@ -10,12 +9,12 @@ export default {};
         <img src="https://placekitten.com/200/200" alt="User Avatar">
     </div>
     <ul>
-      <li><a href="#">Приход</a></li>
-      <li><a href="#">Группы</a></li>
-      <li><a href="#">Продукты</a></li>
+      <li><router-link :to="{ name: 'orders' }">Приходы</router-link></li>
+      <li><router-link :to="{name: 'product'}">Группы</router-link></li>
+      <li><router-link :to="{name: 'product'}">Продукты</router-link></li>
     </ul>
   </div>
-</template>
+</template> 
 
 <style>
 .sidebar {

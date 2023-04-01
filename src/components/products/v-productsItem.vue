@@ -70,14 +70,14 @@ export default {
   justify-content: space-between;
   width: 95%;
   border: 1px solid #ccc;
-  padding: 20px;
+  padding: 10px;
   margin-bottom: 10px;
   background-color: #fff;
   box-sizing: border-box;
 }
 .product-item div {
   display: flex;
-  margin: 0 15px;
+  margin: 0 10px;
   align-items: center;
   box-sizing: border-box;
 }

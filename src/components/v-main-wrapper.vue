@@ -14,7 +14,7 @@ export default {
   <div class="v-main-wrapper">
     <vTopMenu />
     <div class="container-v-main-wrapper">
-      <router-view />
+      <RouterView/>
     </div>
     <vNavigationMenu />
   </div>

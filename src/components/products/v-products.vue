@@ -38,11 +38,15 @@ export default {
 
 <template>
     <div class="product-select">
-      <div class="product-select-name">Продукты / {{ PRODUCTS.length }}</div>
+      <p class="product-select-name">Продукты / {{ PRODUCTS.length }}</p>
       <div class="product-select-type">Тип</div>
       <select v-model="selectedType">
-        <option value="">All</option>
-        <option v-for="type in types" :key="type" :value="type">{{ type }}</option>
+        <option value="">Все типы продуктов</option>
+        <option v-for="type in types" 
+          :key="type" 
+          :value="type"
+          >{{ type }}
+        </option>
       </select>
       
   </div>
@@ -59,5 +63,14 @@ export default {
   display: flex;
   justify-content: flex-start;
   text-align: center;
+  margin-bottom: 20px;
 }
+.product-select-name {
+  font-weight: 600;
+  font-size: 18px;
+}
+.product-select-type {
+  margin: 0 10px 0 20px;
+}
+
 </style>
