@@ -36,7 +36,7 @@ export default {
 <template>
   <div class="product-item">
     <div class="status-icon" style="flex-basis:1%">
-      <div class="circle"></div>
+      <div class="circle" :class="{ 'circle': true, 'green': product_info.isNew, 'grey': !product_info.isNew }"></div>
     </div>
     <div class="product-image" style="flex-basis: 5%">
       <span class="material-icons"> desktop_windows </span>
@@ -44,16 +44,14 @@ export default {
     <div class="product-name" style="flex-basis: 15%">
       <p>{{ product_info.title }}</p>
     </div>
-    <div class="serviceability" style="flex-basis:6%">Исправен</div>
+    <div class="serviceability" style="flex-basis:6%">{{ product_info.isNew ? 'Исправен' : 'Б/У' }}</div>
     <div class="guarantee" style="flex-basis:6%">
       с {{ formDateGuaranteStart }} 
       по {{ formDateGuaranteEnd }}
     </div>
     <div class="condition" style="flex-basis: 6%">{{ product_info.isNew ? 'Новий' : 'Б/У' }}</div>
-    <div class="price" style="flex-basis: 7%"
-    v-for="(priceItem) in product_info.price" 
-    :key="priceItem"
-    >{{priceItem.value}} {{ priceItem.symbol }}
+    <div class="price" style="flex-basis: 7%">
+    <p v-for="(priceItem) in product_info.price" :key="priceItem">{{priceItem.value}} {{ priceItem.symbol }}</p>
     </div>
     <div class="name-group-prodact" style="flex-basis: 15%">{{ product_info.type }}</div>
     <div class="autor-order" style="flex-basis: 12%">Автор прихода</div>
@@ -97,10 +95,16 @@ export default {
 .circle {
   width: 10px;
   height: 10px;
-  background: rgb(102, 255, 0);
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   border-radius: 50px;
+}
+.green {
+  background-color:  rgb(102, 255, 0);
+}
+
+.grey {
+  background-color: grey;
 }
 .serviceability {
   padding: 0 5px;

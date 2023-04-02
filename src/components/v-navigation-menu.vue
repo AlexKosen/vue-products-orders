@@ -44,6 +44,7 @@ export default {};
 
 .sidebar li a:hover {
   background-color: #ddd;
+  max-width: 200px;
 }
 
 .avatar {
