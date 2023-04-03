@@ -44,7 +44,7 @@ export default {
     <div class="product-name" style="flex-basis: 15%">
       <p>{{ product_info.title }}</p>
     </div>
-    <div class="serviceability" style="flex-basis:6%">{{ product_info.isNew ? 'Исправен' : 'Б/У' }}</div>
+    <div class="serviceability" style="flex-basis:6%">{{ product_info.isNew ? 'Свободен' : 'В ремонте' }}</div>
     <div class="guarantee" style="flex-basis:6%">
       с {{ formDateGuaranteStart }} 
       по {{ formDateGuaranteEnd }}

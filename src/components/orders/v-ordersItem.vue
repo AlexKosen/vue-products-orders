@@ -2,6 +2,7 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  emits: ["showInfo"],
   props: {
     order_item: {
       type: Object,
@@ -9,22 +10,22 @@ export default {
         return {};
       },
     },
+    isShow: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      
+    };
   },
   methods: {
     ...mapActions(["GET_PRODUCTS_FROM_API"]),
 
-    // totalSumUSD(products) {
-    //   let usdTotal = products.reduce((total, product) => {
-    //     // перевіряємо, чи властивість "price" містить об'єкт з "symbol" === "USD"
-    //     let usdPrice = product.price.find((p) => p.symbol === "USD");
-    //     if (usdPrice) {
-    //       // додаємо до загальної суми ціну у "USD"
-    //       return total + usdPrice.value;
-    //     } else {
-    //       return total;
-    //     }
-    //   }, 0);
-    // },
+    showInfoProduct() {
+      this.$emit("showInfo");
+    },
   },
   computed: {
     ...mapGetters(["PRODUCTS"]),
@@ -34,13 +35,17 @@ export default {
       return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
     },
 
+    isShowCol() {
+      return this.isShow
+    },
+
     totalSumOrder() {
       let totalUSD = 0;
       let totalUAH = 0;
       let quantityProduct = 0;
       for (let item of this.PRODUCTS)
         if (this.order_item.date === item.date) {
-        quantityProduct += 1
+          quantityProduct += 1;
           for (let price of item.price) {
             if (price.symbol === "USD") {
               totalUSD += price.value;
@@ -58,37 +63,59 @@ export default {
 };
 </script>
 <template>
-  <div class="order-item">
-    <div class="order-item-container">
-      <div class="row">
-        <div class="col-md-1">{{ order_item.title }}</div>
-        <div class="col-md-2">
-          <div class="col-md-2-icon">
-            <i class="material-icons">format_line_spacing</i>
-          </div>
-          <div class="col-md-2-title">{{totalSumOrder.quantityProduct}} Продукта</div>
+  <div class="container">
+  <div class="order-item-container">
+    <div class="row">
+      <div class="col-md-1" v-show="!isShowCol">{{ order_item.title }}</div>
+      <div class="col-md-2">
+        <div class="col-md-2-icon">
+          <i class="material-icons" @click="showInfoProduct"
+            >format_line_spacing</i
+          >
         </div>
-        <div class="col-md-3">{{ formattedDateOrder }}</div>
-        <div class="col-md-4">
-            <p>{{ totalSumOrder.totalUSD }} USD</p>
-            <p>{{ totalSumOrder.totalUAH }} UAH</p>
+        <div class="col-md-2-title">
+          {{ totalSumOrder.quantityProduct }} Продуктов
         </div>
-        <div class="col-md-5"><span class="material-icons"> delete </span></div>
       </div>
+      <div class="col-md-3">{{ formattedDateOrder }}</div>
+      <div class="col-md-4" v-show="!isShowCol">
+        <p>{{ totalSumOrder.totalUSD }} USD</p>
+        <p>{{ totalSumOrder.totalUAH }} UAH</p>
+      </div>
+      <div class="col-md-5" v-show="!isShowCol"><span class="material-icons"> delete </span></div>
+      <div class="order-item-container-product-info" v-show="isShowCol">
+    <div>i</div>
+    <div>img</div>
+    <div>Название продукта</div>
+    <div>Свободен</div>
+    <div><span class="material-icons"> delete </span></div>
+  </div>
     </div>
   </div>
+  <!-- <div class="order-item-container-product-info" v-show="isShowCol">
+    <div>i</div>
+    <div>img</div>
+    <div>Название продукта</div>
+    <div>Свободен</div>
+    <div><span class="material-icons"> delete </span></div>
+  </div> -->
+</div>
 </template>
 
 <style>
+.container {
+
+}
+.order-item-container {
+  margin-bottom: 10px;
+  background-color: #fff;
+}
 .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 90%;
   border: 1px solid #ccc;
   padding: 10px;
-  margin-bottom: 10px;
-  background-color: #fff;
   /* margin-right: -15px;
   margin-left: -15px; */
 }
@@ -103,18 +130,13 @@ export default {
 }
 .col-md-2 {
   flex: 0 0 20%;
+  display: flex;
   flex-wrap: wrap;
   max-width: 20%;
   position: relative;
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-}
-.col-md-2-icon {
-    flex: 1 1 auto;
-}
-.col-md-2-title {
-    flex: 1 1 auto;
 }
 .col-md-3 {
   flex: 0 0 15%;
@@ -139,5 +161,9 @@ export default {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
+}
+.order-item-container-product-info {
+  display: flex;
+  margin-left: 10px;
 }
 </style>
