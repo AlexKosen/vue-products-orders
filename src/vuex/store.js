@@ -6,6 +6,7 @@ export const store = createStore({
       return {
         products: [],
         orders: [],
+        isShowArrow: false
       };
     },
     mutations: {
@@ -14,6 +15,9 @@ export const store = createStore({
       },
       SET_ORDERS_TO_STATE: (state, orders) => {
         state.orders = orders
+      },
+      SET_VIEW_ARROW_ORDER_ITEM: (state) => {
+        state.isShowArrow = true
       }
     },
     actions: {
@@ -40,7 +44,10 @@ export const store = createStore({
             console.log(error);
             return error;
           })
-      }, 
+      },
+      CHANGE_VIEW_ARROW_ORDER_ITEM({ commit }) {
+        commit("SET_VIEW_ARROW_ORDER_ITEM")
+      }
     },
     getters: {
       PRODUCTS(state) {
@@ -49,6 +56,8 @@ export const store = createStore({
       ORDERS(state) {
         return state.orders;
       },
-
+      ISSHOWARROW(state) {
+        return state.isShowArrow
+      }
     }
   });

@@ -13,22 +13,22 @@ export default {
     isShow: {
       type: Boolean,
       default: false
-    }
+    },
   },
   data() {
     return {
-      
     };
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API"]),
+    ...mapActions(["GET_PRODUCTS_FROM_API", "CHANGE_VIEW_ARROW_ORDER_ITEM"]),
 
     showInfoProduct() {
       this.$emit("showInfo");
+      this.CHANGE_VIEW_ARROW_ORDER_ITEM()
     },
   },
   computed: {
-    ...mapGetters(["PRODUCTS"]),
+    ...mapGetters(["PRODUCTS", "ISSHOWARROW"]),
 
     formattedDateOrder() {
       const dateParts = this.order_item.date.split(" ")[0].split("-");
@@ -38,7 +38,6 @@ export default {
     isShowCol() {
       return this.isShow
     },
-
     totalSumOrder() {
       let totalUSD = 0;
       let totalUAH = 0;
@@ -63,7 +62,6 @@ export default {
 };
 </script>
 <template>
-  <div class="container">
   <div class="order-item-container">
     <div class="row">
       <div class="col-md-1" v-show="!isShowCol">{{ order_item.title }}</div>
@@ -83,29 +81,14 @@ export default {
         <p>{{ totalSumOrder.totalUAH }} UAH</p>
       </div>
       <div class="col-md-5" v-show="!isShowCol"><span class="material-icons"> delete </span></div>
-      <div class="order-item-container-product-info" v-show="isShowCol">
-    <div>i</div>
-    <div>img</div>
-    <div>Название продукта</div>
-    <div>Свободен</div>
-    <div><span class="material-icons"> delete </span></div>
+      <div class="col-md-6" v-if="ISSHOWARROW">
+        <i class="material-icons">arrow_forward_ios</i>
+      </div>
   </div>
-    </div>
-  </div>
-  <!-- <div class="order-item-container-product-info" v-show="isShowCol">
-    <div>i</div>
-    <div>img</div>
-    <div>Название продукта</div>
-    <div>Свободен</div>
-    <div><span class="material-icons"> delete </span></div>
-  </div> -->
 </div>
 </template>
 
 <style>
-.container {
-
-}
 .order-item-container {
   margin-bottom: 10px;
   background-color: #fff;
@@ -162,8 +145,18 @@ export default {
   padding-right: 15px;
   padding-left: 15px;
 }
-.order-item-container-product-info {
-  display: flex;
-  margin-left: 10px;
+.col-md-6 {
+  flex: 0 0 5%;
+  max-width: 5%;
+  background-color: #ccc;
+  position: relative;
+  width: 100%;
 }
+/* .material-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
 </style>
