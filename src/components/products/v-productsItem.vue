@@ -55,7 +55,7 @@ export default {
     </div>
     <div class="name-group-prodact" style="flex-basis: 15%">{{ product_info.type }}</div>
     <div class="autor-order" style="flex-basis: 12%">Автор прихода</div>
-    <div class="name-order" style="flex-basis: 15%">Название прихода</div>
+    <div class="name-order" style="flex-basis: 15%">Приход №{{ product_info.order }}</div>
     <div class="order-date" style="flex-basis: 8%">{{ formattedDateOrder }}</div>
     <div class="delete-icon" style="flex-basis: 3%">
       <span class="material-icons"> delete </span>

@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/return-in-computed-property -->
 <script>
 import { mapActions, mapGetters } from "vuex";
 
@@ -20,15 +21,21 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["GET_PRODUCTS_FROM_API", "CHANGE_VIEW_ARROW_ORDER_ITEM"]),
+    ...mapActions([
+      "GET_PRODUCTS_FROM_API", 
+      "ORDER_VIEW_ITEM",
+      "DELETE_ORDER_FROM_API"]),
 
     showInfoProduct() {
       this.$emit("showInfo");
-      this.CHANGE_VIEW_ARROW_ORDER_ITEM()
+      this.ORDER_VIEW_ITEM(this.order_item)
     },
+    deleteOrder() {
+      this.DELETE_ORDER_FROM_API(this.order_item.id)
+    }
   },
   computed: {
-    ...mapGetters(["PRODUCTS", "ISSHOWARROW"]),
+    ...mapGetters(["PRODUCTS", "ORDERITEM"]),
 
     formattedDateOrder() {
       const dateParts = this.order_item.date.split(" ")[0].split("-");
@@ -38,6 +45,12 @@ export default {
     isShowCol() {
       return this.isShow
     },
+    arrowShow() {
+      if (this.order_item.id === this.ORDERITEM.id) {
+        return true
+      }
+    },
+
     totalSumOrder() {
       let totalUSD = 0;
       let totalUAH = 0;
@@ -64,7 +77,7 @@ export default {
 <template>
   <div class="order-item-container">
     <div class="row">
-      <div class="col-md-1" v-show="!isShowCol">{{ order_item.title }}</div>
+      <div class="col-md-1" v-if="!isShowCol">{{ order_item.title }}</div>
       <div class="col-md-2">
         <div class="col-md-2-icon">
           <i class="material-icons" @click="showInfoProduct"
@@ -76,12 +89,14 @@ export default {
         </div>
       </div>
       <div class="col-md-3">{{ formattedDateOrder }}</div>
-      <div class="col-md-4" v-show="!isShowCol">
+      <div class="col-md-4" v-if="!isShowCol">
         <p>{{ totalSumOrder.totalUSD }} USD</p>
         <p>{{ totalSumOrder.totalUAH }} UAH</p>
       </div>
-      <div class="col-md-5" v-show="!isShowCol"><span class="material-icons"> delete </span></div>
-      <div class="col-md-6" v-if="ISSHOWARROW">
+      <div class="col-md-5" @click="deleteOrder" v-if="!isShowCol">
+        <span class="material-icons"> delete </span>
+      </div>
+      <div class="col-md-6" v-show="arrowShow">
         <i class="material-icons">arrow_forward_ios</i>
       </div>
   </div>

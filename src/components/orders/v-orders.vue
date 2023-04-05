@@ -10,11 +10,10 @@ export default {
     return {
       className: "order-item",
       isShow: false,
-      isShowOrderArrow: false
     };
   },
   methods: {
-    ...mapActions(["GET_ORDERS_FROM_API"]),
+    ...mapActions(["GET_ORDERS_FROM_API", "DELETE_ORDER_ITEM"]),
 
     showInfoProduct() {
       this.className = "order-item-shirt";
@@ -23,11 +22,22 @@ export default {
     deleteShowInfoProduct() {
       this.className = "order-item"
       this.isShow = false;
-      this.isShowOrderArrow = false
-    }
+      this.DELETE_ORDER_ITEM()
+    },
+
   },
   computed: {
-    ...mapGetters(["ORDERS"]),
+    ...mapGetters(["ORDERS","ORDERITEM", "PRODUCTS"]),
+
+    showOrderItem() {
+      let orderItem = [];
+      for(let item of this.PRODUCTS) {
+        if(this.ORDERITEM.date === item.date) {
+          orderItem.push(item)
+        }
+      }
+      return { orderItem }
+    }
   },
   mounted() {
     this.GET_ORDERS_FROM_API();
@@ -50,7 +60,6 @@ export default {
           :key="item.id"
           :order_item="item"
           :isShow="isShow"
-          :isShowOrderArrow="isShowOrderArrow"
           @showInfo="showInfoProduct"
         />
       </div>
@@ -71,11 +80,17 @@ export default {
             <p>Добавить продукт</p>
           </div>
         </div>
-        <div class="order-item-container-product">
-          <div>i</div>
-          <div>img</div>
-          <div>Название продукта</div>
-          <div>Свободен</div>
+        <div class="order-item-container-product" 
+        v-for="item in showOrderItem.orderItem"
+        :key="item.id">
+          <div>
+            <div class="circle" :class="{ 'circle': true, 'green': item.isNew, 'grey': !item.isNew }"></div>
+          </div>
+          <div>
+            <span class="material-icons"> desktop_windows </span>
+          </div>
+          <div>{{ item.title }}</div>
+          <div>{{ item.isNew ? 'Свободен' : 'В ремонте' }}</div>
           <div><span class="material-icons"> delete </span></div>
         </div>
       </div>
@@ -114,7 +129,7 @@ export default {
   flex-direction: column;
   width: 45%;
   position: relative;
-  margin-left: 10px;
+  margin-left: 5px;
   border: 1px solid #ccc;
 }
 .order-item-container-btn-cancel {
@@ -126,6 +141,7 @@ export default {
 .order-item-container-header {
   display: flex;
   flex-direction: column;
+  padding: 20px;
 }
 .order-item-container-product-icon {
   display: flex;
@@ -135,5 +151,11 @@ export default {
 .order-item-container-product {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border: #ccc 1px solid;
+  min-height: 50px;
+  background-color: #fff;
+  margin: 1px;
+  padding: 10px;
 }
 </style>
