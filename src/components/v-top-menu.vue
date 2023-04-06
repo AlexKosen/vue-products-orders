@@ -4,16 +4,27 @@
 export default {
   data() {
     return {
-      currentDate: '',
+      currentTime: new Date(),
       currentDay: '',
     }
   },
-
+  computed: {
+    formattedTime() {
+      const options = {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      return this.currentTime.toLocaleDateString('ru-RU', options).replace(',', '');
+    }
+  },
 
   mounted() {
     setInterval(() => {
-      this.currentDate = new Date().toLocaleString()
-    }, 1000)
+      this.currentTime = new Date();
+    }, 1000);
     this.currentDay = new Date().toLocaleString('ru-RU', { weekday: 'long' });
 
 
@@ -35,7 +46,7 @@ export default {
       </li>
       <li>
         <p>{{ currentDay }}</p>
-        <p>{{ currentDate }}</p>
+        <p>{{ formattedTime }}</p>
       </li>
     </ul>
   </nav>

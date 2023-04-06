@@ -201,10 +201,12 @@ export default {
   position: relative;
   width: 100%;
 }
-/* .material-icons {
+.col-md-6 .material-icons {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-} */
+  color: gray;
+  cursor: auto;
+}
 </style>

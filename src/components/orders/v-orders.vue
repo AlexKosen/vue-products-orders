@@ -74,11 +74,11 @@ export default {
         </div>
         <div class="order-item-container-header">
           <div class="order-item-container-product-title">
-            Длинное название прихода
+           Приход: {{ORDERITEM.title}}
           </div>
           <div class="order-item-container-product-icon">
             <i class="material-icons">add_circle_outline</i>
-            <p>Добавить продукт</p>
+            <p class="order-item-addProduct">Добавить продукт</p>
           </div>
         </div>
         <div class="order-item-container-product" 
@@ -149,6 +149,7 @@ export default {
   display: flex;
   text-align: center;
   color: rgb(9, 216, 9);
+  margin-top: 5px;
 }
 .order-item-container-product {
   display: flex;

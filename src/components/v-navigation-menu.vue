@@ -47,9 +47,6 @@ export default {};
 .sidebar li a:hover {
   transition: all 0.3s ease-in-out;
   font-weight: 600;
-  /* background-color: #e6e3e3;
-  width: 100px;
-  border-radius: 8px; */
 }
 
 .avatar {
