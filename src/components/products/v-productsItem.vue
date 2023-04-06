@@ -50,7 +50,7 @@ export default {
       по {{ formDateGuaranteEnd }}
     </div>
     <div class="condition" style="flex-basis: 6%">{{ product_info.isNew ? 'Новий' : 'Б/У' }}</div>
-    <div class="price" style="flex-basis: 7%">
+    <div class="price" style="flex-basis: 7%; flex-wrap:wrap">
     <p v-for="(priceItem) in product_info.price" :key="priceItem">{{priceItem.value}} {{ priceItem.symbol }}</p>
     </div>
     <div class="name-group-prodact" style="flex-basis: 15%">{{ product_info.type }}</div>

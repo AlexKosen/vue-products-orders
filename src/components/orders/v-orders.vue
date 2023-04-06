@@ -109,6 +109,7 @@ export default {
 }
 .order-icon-add {
   margin-right: 15px;
+  color: rgb(9, 216, 9);
 }
 .order-title {
   font-weight: 600;

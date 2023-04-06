@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/return-in-computed-property -->
 <script>
 import { mapActions, mapGetters } from "vuex";
-import vPopup from "../v-popup.vue"
+import vPopup from "../v-popup.vue";
 
 export default {
   emits: ["showInfo"],
@@ -14,11 +14,11 @@ export default {
     },
     isShow: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   components: {
-   vPopup
+    vPopup,
   },
 
   data() {
@@ -29,25 +29,26 @@ export default {
 
   methods: {
     ...mapActions([
-      "GET_PRODUCTS_FROM_API", 
+      "GET_PRODUCTS_FROM_API",
       "ORDER_VIEW_ITEM",
       "DELETE_ORDER_FROM_API",
-      "GET_ORDERS_FROM_API"]),
+      "GET_ORDERS_FROM_API",
+    ]),
 
     showInfoProduct() {
       this.$emit("showInfo");
-      this.ORDER_VIEW_ITEM(this.order_item)
+      this.ORDER_VIEW_ITEM(this.order_item);
     },
     deleteOrder() {
-      // this.DELETE_ORDER_FROM_API(this.order_item.id)
-      this.showPopupInfo()
+      this.DELETE_ORDER_FROM_API(this.order_item.id);
+      this.closeInfoPopup();
     },
     showPopupInfo() {
-      this.isInfoPopupVisible = true
+      this.isInfoPopupVisible = true;
     },
     closeInfoPopup() {
-      this.isInfoPopupVisible = false
-    }
+      this.isInfoPopupVisible = false;
+    },
   },
   computed: {
     ...mapGetters(["PRODUCTS", "ORDERITEM"]),
@@ -58,11 +59,11 @@ export default {
     },
 
     isShowCol() {
-      return this.isShow
+      return this.isShow;
     },
     arrowShow() {
       if (this.order_item.id === this.ORDERITEM.id) {
-        return true
+        return true;
       }
     },
 
@@ -90,19 +91,16 @@ export default {
 };
 </script>
 <template>
-      <vPopup
-      v-if="isInfoPopupVisible"
-      rightBtnTitle="Add to cart"
-      :popupTitle="order_item.title"
-      @closePopup="closeInfoPopup"
-      @rightBtnAction="addToCart"
-    >
-      <div>
-        <p class="the-catalog-item__name">{{ order_item.title }}</p>
-        <p class="the-catalog-item__price">Price:  грн</p>
-        <p class="the-catalog-item__price">46465</p>
-      </div> 
-    </vPopup>
+  <vPopup
+    v-if="isInfoPopupVisible"
+    @closePopup="closeInfoPopup"
+    @rightBtnAction="deleteOrder"
+  >
+    <div class="popup-item">
+      <p class="the-catalog-item__name">{{ order_item.title }}</p>
+      <p class="the-catalog-item__price">Приход от: {{ formattedDateOrder }}</p>
+    </div>
+  </vPopup>
   <div class="order-item-container">
     <div class="row">
       <div class="col-md-1" v-if="!isShowCol">{{ order_item.title }}</div>
@@ -118,20 +116,25 @@ export default {
       </div>
       <div class="col-md-3">{{ formattedDateOrder }}</div>
       <div class="col-md-4" v-if="!isShowCol">
-        <p>{{ totalSumOrder.totalUSD }} USD</p>
+        <p class="total-sum-usd">{{ totalSumOrder.totalUSD }} USD</p>
         <p>{{ totalSumOrder.totalUAH }} UAH</p>
       </div>
-      <div class="col-md-5" @click="deleteOrder" v-if="!isShowCol">
+      <div class="col-md-5" @click="showPopupInfo" v-if="!isShowCol">
         <span class="material-icons"> delete </span>
       </div>
       <div class="col-md-6" v-show="arrowShow">
         <i class="material-icons">arrow_forward_ios</i>
       </div>
+    </div>
   </div>
-</div>
 </template>
 
 <style>
+.popup-item {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px 0;
+}
 .order-item-container {
   margin-bottom: 10px;
   background-color: #fff;
@@ -180,6 +183,9 @@ export default {
   padding-right: 15px;
   padding-left: 15px;
 }
+.total-sum-usd{
+  font-size: 12px;
+}
 .col-md-5 {
   flex: 0 0 5%;
   max-width: 5%;
@@ -201,5 +207,4 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 } */
-
 </style>

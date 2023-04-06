@@ -1,14 +1,6 @@
 <script>
 export default {
   props: {
-    popupTitle: {
-      type: String,
-      default: "Popup name",
-    },
-    rightBtnTitle: {
-      type: String,
-      default: "ok",
-    },
   },
 
   methods: {
@@ -34,15 +26,15 @@ export default {
   <div class="popup-wrapper" ref="popup_wrapper">
     <div class="the-popup">
       <div class="the-popup__header">
-        <span>{{ popupTitle }}</span>
-        <span class="material-icons" @click="closePopup"> close </span>
+        <span>Вы уверенны что хотите удалить этот приход?</span>
+        <i class="material-icons" @click="closePopup"> cancel </i>
       </div>
       <div class="the-popup__content"></div>
       <slot></slot>
       <div class="the-popup__footer">
-        <button class="close-modal btn" @click="closePopup">Close</button>
+        <button class="close-modal btn" @click="closePopup">Отменить</button>
         <button class="sabmit_btn btn" @click="rightBtnAction">
-          {{ rightBtnTitle }}
+          Удалить
         </button>
       </div>
     </div>
@@ -63,8 +55,6 @@ export default {
 }
 .the-popup {
   padding: 16px;
-  position: fixed;
-  top: 50px;
   width: 400px;
   background: #ffffff;
   box-shadow: 0 0 17px 0 #e7e7e7;
@@ -72,23 +62,54 @@ export default {
   &__header,
   &__footer {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
   }
   &__content {
     display: flex;
-    justify-content: center;
+    justify-content:flex-start;
     align-items: center;
   }
   .sabmit_btn {
+    width: 90px;
     padding: 8px;
     color: #ffffff;
-    background-color: forestgreen;
+    border: none;
+    border-radius: 8px;
+    background-color:rgb(253, 81, 81);
+    &:hover {
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      background:rgb(218, 154, 154);
+      color: rgb(82, 82, 82);
+  }
   }
   .close-modal {
+    width: 90px;
     padding: 8px;
     color: #ffffff;
-    background: red;
+    border: none;
+    border-radius: 8px;
+    background: rgb(9, 216, 9);
+    &:hover {
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      background: rgb(127, 212, 127);
+      color: rgb(82, 82, 82);
+  }
   }
 }
+.the-popup {
+  &__header {
+    font-weight: 500;
+  }
+  .material-icons {
+  position: relative;
+  top: -25px;
+  right: -25px;
+  color: grey;
+}
+}
+
+  
 </style>
