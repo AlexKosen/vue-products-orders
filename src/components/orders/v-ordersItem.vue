@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/return-in-computed-property -->
 <script>
 import { mapActions, mapGetters } from "vuex";
+import vPopup from "../v-popup.vue"
 
 export default {
   emits: ["showInfo"],
@@ -16,22 +17,36 @@ export default {
       default: false
     },
   },
+  components: {
+   vPopup
+  },
+
   data() {
     return {
+      isInfoPopupVisible: false,
     };
   },
+
   methods: {
     ...mapActions([
       "GET_PRODUCTS_FROM_API", 
       "ORDER_VIEW_ITEM",
-      "DELETE_ORDER_FROM_API"]),
+      "DELETE_ORDER_FROM_API",
+      "GET_ORDERS_FROM_API"]),
 
     showInfoProduct() {
       this.$emit("showInfo");
       this.ORDER_VIEW_ITEM(this.order_item)
     },
     deleteOrder() {
-      this.DELETE_ORDER_FROM_API(this.order_item.id)
+      // this.DELETE_ORDER_FROM_API(this.order_item.id)
+      this.showPopupInfo()
+    },
+    showPopupInfo() {
+      this.isInfoPopupVisible = true
+    },
+    closeInfoPopup() {
+      this.isInfoPopupVisible = false
     }
   },
   computed: {
@@ -75,6 +90,19 @@ export default {
 };
 </script>
 <template>
+      <vPopup
+      v-if="isInfoPopupVisible"
+      rightBtnTitle="Add to cart"
+      :popupTitle="order_item.title"
+      @closePopup="closeInfoPopup"
+      @rightBtnAction="addToCart"
+    >
+      <div>
+        <p class="the-catalog-item__name">{{ order_item.title }}</p>
+        <p class="the-catalog-item__price">Price:  грн</p>
+        <p class="the-catalog-item__price">46465</p>
+      </div> 
+    </vPopup>
   <div class="order-item-container">
     <div class="row">
       <div class="col-md-1" v-if="!isShowCol">{{ order_item.title }}</div>

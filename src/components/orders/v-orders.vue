@@ -12,6 +12,7 @@ export default {
       isShow: false,
     };
   },
+
   methods: {
     ...mapActions(["GET_ORDERS_FROM_API", "DELETE_ORDER_ITEM"]),
 
@@ -23,8 +24,6 @@ export default {
       this.className = "order-item"
       this.isShow = false;
       this.DELETE_ORDER_ITEM()
-      this.GET_ORDERS_FROM_API()
-      this.GET_ORDERS_FROM_API()
     },
 
   },
