@@ -39,21 +39,23 @@ export default {
       <div class="circle" :class="{ 'circle': true, 'green': product_info.isNew, 'grey': !product_info.isNew }"></div>
     </div>
     <div class="product-image" style="flex-basis: 5%">
-      <span class="material-icons"> desktop_windows </span>
+      <img :src="'images/' + product_info.photo" alt="img" />
     </div>
     <div class="product-name" style="flex-basis: 15%">
       <p>{{ product_info.title }}</p>
     </div>
-    <div class="serviceability" style="flex-basis:6%">{{ product_info.isNew ? 'Свободен' : 'В ремонте' }}</div>
+    <div class="serviceability" style="flex-basis:10%">{{ product_info.isNew ? 'Свободен' : 'В ремонте' }}</div>
     <div class="guarantee" style="flex-basis:6%">
       с {{ formDateGuaranteStart }} 
       по {{ formDateGuaranteEnd }}
     </div>
     <div class="condition" style="flex-basis: 6%">{{ product_info.isNew ? 'Новий' : 'Б/У' }}</div>
     <div class="price" style="flex-basis: 7%; flex-wrap:wrap">
-    <p v-for="(priceItem) in product_info.price" :key="priceItem">{{priceItem.value}} {{ priceItem.symbol }}</p>
+    <div v-for="(priceItem) in product_info.price" :key="priceItem">
+      <div :class="{'small-text': priceItem.symbol == 'USD'}">{{priceItem.value}} {{ priceItem.symbol }}</div>
     </div>
-    <div class="name-group-prodact" style="flex-basis: 15%">{{ product_info.type }}</div>
+    </div>
+    <div class="name-group-prodact" style="flex-basis: 10%">{{ product_info.type }}</div>
     <div class="autor-order" style="flex-basis: 12%">Автор прихода</div>
     <div class="name-order" style="flex-basis: 15%">Приход №{{ product_info.order }}</div>
     <div class="order-date" style="flex-basis: 8%">{{ formattedDateOrder }}</div>
@@ -108,6 +110,9 @@ export default {
 }
 .serviceability {
   padding: 0 5px;
+}
+.small-text {
+  font-size: 12px;
 }
 .material-icons:hover {
   cursor: pointer;

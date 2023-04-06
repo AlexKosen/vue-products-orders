@@ -35,7 +35,9 @@ export default {
 <template>
   <nav class="top-menu">
     <ul>
-      <li><a href="#">Logo</a></li>
+      <li class="top-menu-img">
+        <img :src="'images/' + 'Infinix Logo.png'" alt="img" style="width:100%; height:100%;"/>
+      </li>
       <li>
         <input
           type="text"
@@ -74,7 +76,9 @@ export default {
   justify-content: space-around;
   height: 100%;
 }
-
+.top-menu-img {
+  width: 100px;
+}
 .top-menu li, p {
   margin: 0 10px;
 }

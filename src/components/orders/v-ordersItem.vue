@@ -145,8 +145,6 @@ export default {
   justify-content: space-between;
   border: 1px solid #ccc;
   padding: 10px;
-  /* margin-right: -15px;
-  margin-left: -15px; */
 }
 
 .col-md-1 {
@@ -195,8 +193,8 @@ export default {
   padding-left: 15px;
 }
 .col-md-6 {
-  flex: 0 0 5%;
-  max-width: 5%;
+  flex: 0 0 10%;
+  max-width: 10%;
   background-color: #ccc;
   position: relative;
   width: 100%;

@@ -74,7 +74,7 @@ export default {
         </div>
         <div class="order-item-container-header">
           <div class="order-item-container-product-title">
-           Приход: {{ORDERITEM.title}}
+           Приход: {{ORDERITEM.title}} от {{ ORDERITEM.date }}
           </div>
           <div class="order-item-container-product-icon">
             <i class="material-icons">add_circle_outline</i>
@@ -87,8 +87,8 @@ export default {
           <div>
             <div class="circle" :class="{ 'circle': true, 'green': item.isNew, 'grey': !item.isNew }"></div>
           </div>
-          <div>
-            <span class="material-icons"> desktop_windows </span>
+          <div class="order-item-img">
+            <img :src="'images/' + item.photo" alt="img" style="width:100%; height:100%;"/>
           </div>
           <div>{{ item.title }}</div>
           <div>{{ item.isNew ? 'Свободен' : 'В ремонте' }}</div>
@@ -144,6 +144,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  font-weight: 600;
 }
 .order-item-container-product-icon {
   display: flex;
@@ -160,5 +161,11 @@ export default {
   background-color: #fff;
   margin: 1px;
   padding: 10px;
+}
+.order-item-img {
+  flex: 0 0 10%;
+  max-width: 10%;
+  position: relative;
+  width: 100%;
 }
 </style>
