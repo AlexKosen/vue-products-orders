@@ -22,6 +22,9 @@ export const store = createStore({
     SET_DELETE_ORDER_ITEM: (state) => {
       state.orderItem = [];
     },
+    RELOUD: () => {
+      location.reload();
+    }
   },
   actions: {
     GET_PRODUCTS_FROM_API({ commit }) {
@@ -53,38 +56,20 @@ export const store = createStore({
         });
     },
     DELETE_ORDER_FROM_API({ commit }, id) {
-      alert(id)
-      return axios
-        .delete(
-          `https://dzencode-e2739-default-rtdb.europe-west1.firebasedatabase.app/orders.id${id}.json`
-        )
-        .then((response) => {
-          console.log(response);
+      const filteredOrders = this.state.orders.filter(
+        (order) => order.id !== id
+      );
+      const filteredProducts = this.state.products.filter(
+        (product) => product.order !== id
+      );
+      axios
+        .put("https://dzencode-e2739-default-rtdb.europe-west1.firebasedatabase.app/.json", {
+          orders: filteredOrders,
+          products: filteredProducts,
         })
-        .catch((error) => {
-          console.log(error);
-          axios
-            .delete(
-              `https://dzencode-e2739-default-rtdb.europe-west1.firebasedatabase.app/products.order.id${id}.json`
-            )
-            .then((response) => {
-              console.log(response);
-            })
-            .catch((error) => {
-              console.log(error);
-              axios
-                .get(
-                  "https://dzencode-e2739-default-rtdb.europe-west1.firebasedatabase.app/orders.json"
-                )
-                .then((orders) => {
-                  commit("SET_ORDERS_TO_STATE", orders.data);
-                  return orders;
-                })
-                .catch((error) => {
-                  console.log(error);
-                  return error;
-                });
-            });
+        .then((response) => {
+          console.log(response.data);
+          commit("RELOUD");
         });
     },
 
