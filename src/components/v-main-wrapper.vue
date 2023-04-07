@@ -30,7 +30,7 @@ export default {
 .container-v-main-wrapper {
   position: relative;
   /* Відступи від бокового меню і верхнього меню */
-  margin-top: 80px;
-  margin-left: 80px;
+  margin-top: 50px;
+  margin-left: 50px;
 }
 </style>

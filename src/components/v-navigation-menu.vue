@@ -21,7 +21,7 @@ export default {};
 
 <style>
 .sidebar {
-  width: 200px;
+  width: 180px;
   height: 100%;
   position: fixed;
   left: 0;
@@ -29,7 +29,7 @@ export default {};
   background-color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  padding-left: 40px;
+  padding-left: 60px;
   z-index: 1;
 }
 .sidebar ul {
